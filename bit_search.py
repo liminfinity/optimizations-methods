@@ -8,8 +8,8 @@ def bit_search(fn, a, b, eps):
         if y_0 > y_1:
             x_0 = x_1
             y_0 = y_1
-        if a < x_0 < b: continue
-        elif x_0 >= b:
+            if a < x_0 < b: continue
+        if x_0 >= b:
             x_0 = b
         elif x_0 <= a:
             x_0 = a
