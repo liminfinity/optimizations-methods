@@ -35,6 +35,6 @@ if __name__ == "__main__":
     res = split_interval(input_fn, a, b, eps)
     print(f'x: {res['x']}\ty: {res['y']}')
     R = 1 / 2 ** ((res['N'] - 1) / 2)
-    print(f'N: {res['N']}\tN(theory): {2 * log(R) / log(0.5)}')
+    print(f'N: {res['N']}\tN(theory): {ceil(2 * log(R) / log(0.5))}')
     print(f'n: {res['n']}\tn(theory): {ceil(log2((b - a) / eps))}')
     print(f'R(N): {abs(res['b'] - res['a'])/abs(b - a)}\tR(N)(theory): {R}')
