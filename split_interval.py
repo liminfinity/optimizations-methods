@@ -1,6 +1,7 @@
 from math import ceil, log2, log
+from custom_types import Number, NumericalMethod
 
-def split_interval(fn, a, b, eps):
+def split_interval(fn: NumericalMethod, a: Number, b: Number, eps: Number):
     k = 0
     N = 1
     avg_x = (a + b) / 2

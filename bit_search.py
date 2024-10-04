@@ -1,4 +1,6 @@
-def bit_search(fn, a, b, eps):
+from custom_types import Number, NumericalMethod
+
+def bit_search(fn: NumericalMethod, a: Number, b: Number, eps: Number):
     h = (b - a) / 4
     x_0 = a
     y_0 = fn(x_0)
