@@ -1,7 +1,40 @@
 from math import ceil, log2, log
 from custom_types import Number, NumericalMethod
+from typing import Dict
 
-def split_interval(fn: NumericalMethod, a: Number, b: Number, eps: Number):
+def split_interval(fn: NumericalMethod, a: Number, b: Number, eps: Number) -> Dict[str, Number]:
+    """
+    Находит минимум функции с помощью метода деления интервала.
+
+    Параметры:
+    fn (NumericalMethod): Функция, для которой необходимо найти минимум.
+    a (Number): Левая граница интервала, в котором ищется минимум.
+    b (Number): Правая граница интервала, в котором ищется минимум.
+    eps (Number): Точность поиска (порог для завершения).
+
+    Возвращает:
+    Dict[str, Number]: Словарь с координатами минимума. 
+                    Ключ 'x' — значение аргумента, при котором достигается минимум.
+                    Ключ 'y' — значение функции в точке минимума.
+                    Ключ 'n' — количество итераций, необходимых для достижения минимума.
+                    Ключ 'N' — общее количество вызовов целевой функции.
+                    Ключ 'a' — обновленная левая граница интервала.
+                    Ключ 'b' — обновленная правая граница интервала.
+
+    Исключения:
+    ValueError: Если eps <= 0 (некорректное значение точности).
+
+    Примеры:
+    >>> def f(x):
+    ...     return (x - 4) ** 2
+    >>> result = split_interval(f, 0, 10, 0.01)
+    >>> print(result)
+    {'x': 4.0, 'y': 0.0, 'n': 10, 'N': 21, 'a': 3.75, 'b': 4.25}
+    """
+
+    if eps <= 0:
+        raise ValueError("Параметр eps должен быть положительным.")
+    
     k = 0
     N = 1
     avg_x = (a + b) / 2

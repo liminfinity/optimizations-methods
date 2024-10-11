@@ -1,6 +1,33 @@
-from custom_types import Number, NumericalMethod
+from custom_types import Number, NumericalMethod, OptimizationFnReturnValue
 
-def bit_search(fn: NumericalMethod, a: Number, b: Number, eps: Number):
+def bit_search(fn: NumericalMethod, a: Number, b: Number, eps: Number) -> OptimizationFnReturnValue:
+    """
+    Находит минимум функции с помощью метода битового поиска.
+
+    Параметры:
+    fn (NumericalMethod): Функция, для которой необходимо найти минимум.
+    a (Number): Левая граница интервала, в котором ищется минимум.
+    b (Number): Правая граница интервала, в котором ищется минимум.
+    eps (Number): Точность поиска (порог для завершения).
+
+    Возвращает:
+    OptimizationFnReturnValue: Словарь с координатами минимума. 
+                                Ключ 'x' — значение аргумента, при котором достигается минимум.
+                                Ключ 'y' — значение функции в точке минимума.
+
+    Исключения:
+    ValueError: Если eps <= 0 (некорректное значение точности).
+
+    Примеры:
+    >>> def f(x):
+    ...     return (x - 3) ** 2
+    >>> result = bit_search(f, 0, 6, 0.01)
+    >>> print(result)
+    {'x': 3.0, 'y': 0.0}
+    """
+    if eps <= 0:
+        raise ValueError("Параметр eps должен быть положительным.")
+
     h = (b - a) / 4
     x_0 = a
     y_0 = fn(x_0)
