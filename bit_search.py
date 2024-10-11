@@ -2,7 +2,7 @@ from custom_types import Number, NumericalMethod, OptimizationFnReturnValue
 
 def bit_search(fn: NumericalMethod, a: Number, b: Number, eps: Number) -> OptimizationFnReturnValue:
     """
-    Находит минимум функции с помощью метода битового поиска.
+    Находит минимум функции с помощью метода поразрядного поиска.
 
     Параметры:\n
         fn (NumericalMethod): Функция, для которой необходимо найти минимум.\n
@@ -38,10 +38,12 @@ def bit_search(fn: NumericalMethod, a: Number, b: Number, eps: Number) -> Optimi
             x_0 = x_1
             y_0 = y_1
             if a < x_0 < b: continue
-        if x_0 >= b:
-            x_0 = b
-        elif x_0 <= a:
-            x_0 = a
+        if x_0 <= a:
+            h /= 4
+            x_0 = a + h
+        elif x_1 >= b:
+            h = -h / 4
+            x_0 = b + h
         if abs(h) <= eps:
             return {'x': x_0, 'y': fn(x_0)}
         else:
