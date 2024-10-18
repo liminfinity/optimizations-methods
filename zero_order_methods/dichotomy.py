@@ -1,6 +1,9 @@
 from custom_types import Number, NumericalMethod, OptimizationFnReturnValue
 
-def dichotomy(fn: NumericalMethod, a: Number, b: Number, eps: Number) -> OptimizationFnReturnValue:
+
+def dichotomy(
+    fn: NumericalMethod, a: Number, b: Number, eps: Number
+) -> OptimizationFnReturnValue:
     """
     Находит минимум функции с помощью метода дихотомии.
 
@@ -11,7 +14,7 @@ def dichotomy(fn: NumericalMethod, a: Number, b: Number, eps: Number) -> Optimiz
         eps (Number): Точность поиска (порог для завершения).\n
 
     Возвращает:\n
-        OptimizationFnReturnValue: Словарь с координатами минимума. 
+        OptimizationFnReturnValue: Словарь с координатами минимума.
                     Ключ 'x' — значение аргумента, при котором достигается минимум.
                     Ключ 'y' — значение функции в точке минимума.
 
@@ -27,7 +30,7 @@ def dichotomy(fn: NumericalMethod, a: Number, b: Number, eps: Number) -> Optimiz
     """
     if eps <= 0:
         raise ValueError("Параметр eps должен быть положительным.")
-    
+
     delta = eps / 4
     l = b - a
     while l > eps:
@@ -42,12 +45,12 @@ def dichotomy(fn: NumericalMethod, a: Number, b: Number, eps: Number) -> Optimiz
         l = b - a
     else:
         x_min = (a + b) / 2
-        return {'x': x_min, 'y': fn(x_min)}
+        return {"x": x_min, "y": fn(x_min)}
 
 
 if __name__ == "__main__":
-    input_fn = lambda x: x ** 2 - 2 * x + 16 / (x - 1) - 13
+    input_fn = lambda x: x**2 - 2 * x + 16 / (x - 1) - 13
     a, b = 2, 5
-    eps =  10 ** -3
+    eps = 10**-3
     res = dichotomy(input_fn, a, b, eps)
-    print(f'x: {res['x']}, y: {res['y']}')
+    print(f"x: {res['x']}, y: {res['y']}")
