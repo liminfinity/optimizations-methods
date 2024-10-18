@@ -1,7 +1,9 @@
 from custom_types import Number, NumericalMethod, OptimizationFnReturnValue
-from math import sqrt
 
-def fibonacci(fn: NumericalMethod, a: Number, b: Number, eps: Number) -> OptimizationFnReturnValue:
+
+def fibonacci(
+    fn: NumericalMethod, a: Number, b: Number, eps: Number
+) -> OptimizationFnReturnValue:
     """
     Находит минимум функции с помощью метода Фибоначчи.
 
@@ -12,7 +14,7 @@ def fibonacci(fn: NumericalMethod, a: Number, b: Number, eps: Number) -> Optimiz
         eps (Number): Точность поиска (порог для завершения).\n
 
     Возвращает:\n
-        OptimizationFnReturnValue: Словарь с координатами минимума. 
+        OptimizationFnReturnValue: Словарь с координатами минимума.
                     Ключ 'x' — значение аргумента, при котором достигается минимум.
                     Ключ 'y' — значение функции в точке минимума.
 
@@ -28,7 +30,7 @@ def fibonacci(fn: NumericalMethod, a: Number, b: Number, eps: Number) -> Optimiz
     """
     if eps <= 0:
         raise ValueError("Параметр eps должен быть положительным.")
-    
+
     f_1 = f_2 = j = 1
     m = None
 
@@ -40,13 +42,13 @@ def fibonacci(fn: NumericalMethod, a: Number, b: Number, eps: Number) -> Optimiz
         else:
             f_1, f_2 = f_2, f_3
             j += 1
-    
+
     alpha_x = a + f_1 / f_3 * (b - a)
     beta_x = a + b - alpha_x
     alpha_y = fn(alpha_x)
     beta_y = fn(beta_x)
     k = 1
-    
+
     while k < m - 1:
         if alpha_y <= beta_y:
             b = beta_x
@@ -63,12 +65,12 @@ def fibonacci(fn: NumericalMethod, a: Number, b: Number, eps: Number) -> Optimiz
         k += 1
     else:
         x_min = (a + b) / 2
-        return {'x': x_min, 'y': fn(x_min)}
+        return {"x": x_min, "y": fn(x_min)}
 
 
 if __name__ == "__main__":
-    input_fn = lambda x: x ** 2 - 2 * x + 16 / (x - 1) - 13
+    input_fn = lambda x: x**2 - 2 * x + 16 / (x - 1) - 13
     a, b = 2, 5
-    eps =  10 ** -3
+    eps = 10**-3
     res = fibonacci(input_fn, a, b, eps)
-    print(f'x: {res['x']}, y: {res['y']}')
+    print(f"x: {res['x']}, y: {res['y']}")

@@ -1,7 +1,10 @@
 from custom_types import Number, NumericalMethod, OptimizationFnReturnValue
 from math import sqrt
 
-def golden_ratio(fn: NumericalMethod, a: Number, b: Number, eps: Number) -> OptimizationFnReturnValue:
+
+def golden_ratio(
+    fn: NumericalMethod, a: Number, b: Number, eps: Number
+) -> OptimizationFnReturnValue:
     """
     Находит минимум функции с помощью метода золотого сечения.
 
@@ -12,7 +15,7 @@ def golden_ratio(fn: NumericalMethod, a: Number, b: Number, eps: Number) -> Opti
         eps (Number): Точность поиска (порог для завершения).\n
 
     Возвращает:\n
-        OptimizationFnReturnValue: Словарь с координатами минимума. 
+        OptimizationFnReturnValue: Словарь с координатами минимума.
                     Ключ 'x' — значение аргумента, при котором достигается минимум.
                     Ключ 'y' — значение функции в точке минимума.
 
@@ -28,7 +31,7 @@ def golden_ratio(fn: NumericalMethod, a: Number, b: Number, eps: Number) -> Opti
     """
     if eps <= 0:
         raise ValueError("Параметр eps должен быть положительным.")
-    
+
     alpha_x = a + (3 - sqrt(5)) / 2 * (b - a)
     beta_x = a + (sqrt(5) - 1) / 2 * (b - a)
     alpha_y = fn(alpha_x)
@@ -53,12 +56,12 @@ def golden_ratio(fn: NumericalMethod, a: Number, b: Number, eps: Number) -> Opti
         l = b - a
     else:
         x_min = x
-        return {'x': x_min, 'y': fn(x_min)}
+        return {"x": x_min, "y": fn(x_min)}
 
 
 if __name__ == "__main__":
-    input_fn = lambda x: x ** 2 - 2 * x + 16 / (x - 1) - 13
+    input_fn = lambda x: x**2 - 2 * x + 16 / (x - 1) - 13
     a, b = 2, 5
-    eps =  10 ** -3
+    eps = 10**-3
     res = golden_ratio(input_fn, a, b, eps)
-    print(f'x: {res['x']}, y: {res['y']}')
+    print(f"x: {res['x']}, y: {res['y']}")

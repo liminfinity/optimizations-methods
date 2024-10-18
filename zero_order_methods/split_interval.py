@@ -2,7 +2,10 @@ from math import ceil, log2, log
 from custom_types import Number, NumericalMethod
 from typing import Dict
 
-def split_interval(fn: NumericalMethod, a: Number, b: Number, eps: Number) -> Dict[str, Number]:
+
+def split_interval(
+    fn: NumericalMethod, a: Number, b: Number, eps: Number
+) -> Dict[str, Number]:
     """
     Находит минимум функции с помощью метода деления интервала.
 
@@ -13,7 +16,7 @@ def split_interval(fn: NumericalMethod, a: Number, b: Number, eps: Number) -> Di
         eps (Number): Точность поиска (порог для завершения).\n
 
     Возвращает:\n
-        Dict[str, Number]: Словарь с координатами минимума. 
+        Dict[str, Number]: Словарь с координатами минимума.
                     Ключ 'x' — значение аргумента, при котором достигается минимум.
                     Ключ 'y' — значение функции в точке минимума.
                     Ключ 'n' — количество итераций, необходимых для достижения минимума.
@@ -34,7 +37,7 @@ def split_interval(fn: NumericalMethod, a: Number, b: Number, eps: Number) -> Di
 
     if eps <= 0:
         raise ValueError("Параметр eps должен быть положительным.")
-    
+
     k = 0
     N = 1
     avg_x = (a + b) / 2
@@ -59,16 +62,16 @@ def split_interval(fn: NumericalMethod, a: Number, b: Number, eps: Number) -> Di
         k += 1
     else:
         x_min = (a + b) / 2
-        return {'x': x_min, 'y': fn(x_min), 'n': k, 'N': N, 'a': a, 'b': b}
+        return {"x": x_min, "y": fn(x_min), "n": k, "N": N, "a": a, "b": b}
 
 
 if __name__ == "__main__":
-    input_fn = lambda x: x ** 2 - 2 * x + 16 / (x - 1) - 13
+    input_fn = lambda x: x**2 - 2 * x + 16 / (x - 1) - 13
     a, b = 2, 5
-    eps = 10 ** -3
+    eps = 10**-3
     res = split_interval(input_fn, a, b, eps)
-    print(f'x: {res['x']}\ty: {res['y']}')
-    R = 1 / 2 ** ((res['N'] - 1) / 2)
-    print(f'N: {res['N']}\tN(theory): {ceil(2 * log(R) / log(0.5))}')
-    print(f'n: {res['n']}\tn(theory): {ceil(log2((b - a) / eps))}')
-    print(f'R(N): {abs(res['b'] - res['a'])/abs(b - a)}\tR(N)(theory): {R}')
+    print(f"x: {res['x']}\ty: {res['y']}")
+    R = 1 / 2 ** ((res["N"] - 1) / 2)
+    print(f"N: {res['N']}\tN(theory): {ceil(2 * log(R) / log(0.5))}")
+    print(f"n: {res['n']}\tn(theory): {ceil(log2((b - a) / eps))}")
+    print(f"R(N): {abs(res['b'] - res['a'])/abs(b - a)}\tR(N)(theory): {R}")
